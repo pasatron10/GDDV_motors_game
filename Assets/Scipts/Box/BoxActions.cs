@@ -6,6 +6,7 @@ public class BoxActions : MonoBehaviour, IDamageable
 {
 
     private string estatActual; 
+    private Vector3 posActual; 
     public Material[] material;
     Renderer rend;
 
@@ -34,21 +35,47 @@ public class BoxActions : MonoBehaviour, IDamageable
             transform.localScale = new Vector3(1, 1, 1);
             estatActual = "normal";
             rend.sharedMaterial = material[0];
+            transform.localPosition = posActual;
 
         }
         else
         {
-            if (costat == "OEST" || costat == "EST")
+            posActual = transform.localPosition;
+            if (costat == "OEST")
             {
+                float newPos = transform.localPosition.x - (float)0.5;
+                transform.localPosition = new Vector3(newPos, transform.localPosition.y, transform.localPosition.z);
                 transform.localScale = new Vector3(2, 1, 1);
             }
-            else if (costat == "AMUNT" || costat == "ABAIX")
+            else if (costat == "EST")
             {
+                float newPos = transform.localPosition.x + (float)0.5;
+               transform.localPosition = new Vector3(newPos, transform.localPosition.y, transform.localPosition.z);
+                transform.localScale = new Vector3(2, 1, 1);
+            }
+            else if (costat == "SUD")
+            {
+                float newPos = transform.localPosition.z - (float)0.5;
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, newPos);
+                transform.localScale = new Vector3(1, 1, 2);
+            }
+            else if (costat == "NORD")
+            {
+                float newPos = transform.localPosition.z + (float)0.5;
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, newPos);
+                transform.localScale = new Vector3(1, 1, 2);
+            }
+            else if (costat == "AMUNT")
+            {
+                float newPos = transform.localPosition.y - (float)0.5;
+                transform.localPosition = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
                 transform.localScale = new Vector3(1, 2, 1);
             }
-            else if (costat == "SUD" || costat == "NORD")
+            else if (costat == "ABAIX")
             {
-                transform.localScale = new Vector3(1, 1, 2);
+                float newPos = transform.localPosition.y + (float)0.5;
+                transform.localPosition = new Vector3(transform.localPosition.x, newPos, transform.localPosition.z);
+                transform.localScale = new Vector3(1, 2, 1);
             }
             estatActual = "augmentarMida";
             rend.sharedMaterial = material[1];
